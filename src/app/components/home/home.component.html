@@ -1,0 +1,23 @@
+<app-header></app-header>
+<div class="home text-center mt-2">
+    <h1> Все заметки</h1>
+    <div class="top">
+        <div class="search-block">
+        <img src="assets/search.png" alt="Search" />
+        <input
+          placeholder="Поиск..."
+        />
+        
+        </div> 
+    <button class="btn btn-primary ">Добавить заметку</button>
+    </div>
+   
+    
+    <div class="card-container">
+        <ng-container *ngFor="let card of cards">
+            <app-card  [card]="card"></app-card>
+        </ng-container>
+        
+    <div [ngStyle]="{'border':'1px dashed #ccc','margin':'10px'}">ddddd</div>
+    </div>
+</div>

@@ -1,4 +1,5 @@
-import { Component } from "@angular/core"
+import { Component, Input } from "@angular/core"
+import { Card } from "../models";
 @Component({
     selector: "app-card",
     templateUrl: './card.component.html',
@@ -6,10 +7,11 @@ import { Component } from "@angular/core"
 })
 
 export class CardComponent {
-    title = 'abcd';
-    text="Note text text123 bla bla"
-    time="12/12/12"
+    @Input('card')
+    public card!:Card;
+public visability:string="visible";
     inputHandler() {
-
+console.log("delete")
     }
+    
 }

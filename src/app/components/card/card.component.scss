@@ -1,9 +1,23 @@
 .card{
-    padding: 5px;
-    border: 1px dashed #ccc;
-    margin-bottom: 15 px;
-    h2{
-        margin-bottom: 6px;
+    
+    
+    border: 1px solid rgb(117, 192, 241);
+    .deletebtn{
+        margin: 3px;
+        width: 20 px;
+        height: 30px;
+        cursor: pointer;
+        border-radius: 3px;
+        border: 1px solid rgb(103, 201, 226);
+        background-color: rgb(250, 252, 252);
+        position: absolute;
+        top: 3px; 
+        right: 3px;
+        transition: 0.3s;
+        &:hover{
+            background-color: rgb(236, 62, 62);
+            border-color: red;
+        }
     }
-
+    
 }

@@ -13,6 +13,6 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin=()=>{
-    this.router.navigate(['./cards']);
+    this.router.navigate(['./home']);
   }
 }
