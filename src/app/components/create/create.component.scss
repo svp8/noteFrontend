@@ -1,0 +1,22 @@
+form{
+    width: 60%;
+    margin-top: 15px;
+    .input-group-prepend{
+        width: 101.9px;
+        
+    }
+    .form-control{
+            height:38px;
+        }
+    .btn{
+        float:right;
+        
+    }
+}
+
+.home{
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
