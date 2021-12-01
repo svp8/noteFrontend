@@ -12,16 +12,21 @@ export class CardComponent {
     @Input('card')
     public card!: Card;
     public deleted: string = "";
-    constructor(private http: HttpService) { }
+
+    constructor(private http: HttpService) {
+
+    }
+//Удаление заметки
     inputHandler() {
         console.log(this.card.header)
 
         this.http.deleteNotes(this.card.note_id).subscribe((resp: any) => {
-            if(resp!=null){
-              console.log(resp);
-              this.deleted="none"
+            if (resp != null) {
+                console.log(resp);
+                //Скрываем заметку
+                this.deleted = "none"
             }
-            });
+        });
     }
 
 }

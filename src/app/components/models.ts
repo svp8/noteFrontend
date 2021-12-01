@@ -1,4 +1,4 @@
-
+// Интерфейсы заметок и пользователей
 export interface Card{
     note_id:number;
     header:string;

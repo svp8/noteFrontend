@@ -1,20 +1,20 @@
 <div class="">
-    <form class="login-form text-center align-items-center">
-      <img class="mb-4 center" src="assets/notes.png" alt="" width="70" height="57">
-      <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-  
-      <div class="form-floating mb-2">
-        <input type="email" name="login" class="form-control" [(ngModel)]="login" placeholder="name@example.com">
-        <label for="floatingInput">Username</label>
-      </div>
-      <div class="form-floating mb-2 ">
-        <input type="password" name="password" class="form-control" [(ngModel)]="password" placeholder="Password">
-        <label for="floatingPassword">Password</label>
-      </div>
-  
-    <p [ngStyle]="{'display':auth}" >Ошибка входа</p>
-      <button class="w-100 btn btn-lg btn-primary" type="submit" (click)="onLogin()">Sign in</button>
-      
-    </form>
-  
+  <form class="login-form text-center align-items-center">
+    <img class="mb-4 center" src="assets/notes.png" alt="" width="70" height="57">
+    <h1 class="h3 mb-3 fw-normal">Note app</h1>
+
+    <div class="form-floating mb-2">
+      <input type="email" name="login" class="form-control" [(ngModel)]="login" placeholder="Username">
+      <label for="floatingInput">Username</label>
+    </div>
+    <div class="form-floating mb-2 ">
+      <input type="password" name="password" class="form-control" [(ngModel)]="password" placeholder="Password">
+      <label for="floatingPassword">Password</label>
+    </div>
+
+    <p [ngStyle]="{'display':auth}">Ошибка входа</p>
+    <button class="w-100 btn btn-lg btn-primary" type="submit" (click)="onLogin()">Войти</button>
+
+  </form>
+
 </div>

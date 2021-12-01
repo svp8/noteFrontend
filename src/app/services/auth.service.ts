@@ -1,7 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { User } from '../components/models';
-import { HttpService } from './http.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +11,14 @@ export class AuthService {
   user: any = {};
   auth: string = "none";
   private currentUserSubject: BehaviorSubject<User>;
-  public currentUser: Observable<User>;
-  constructor(private service: HttpService) {
+
+  constructor(private http: HttpClient) {
 
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem("currentUser") || '{}'));
-    this.currentUser = this.currentUserSubject.asObservable();
+
   }
+  // Возвращает Токен для basic auth
   public getToken() {
-    //  let token:User=localStorage.getItem('currentUser');
     let token = this.currentUserSubject.value.authdata
     console.log("token" + token);
     if (token != null) {
@@ -25,37 +26,43 @@ export class AuthService {
     }
     return null;
   }
-  onLogin = (login: string, password: string): any => {
-
-    this.service.loginUser(login, password).subscribe((resp: any) => {
-      // localStorage.setItem('user', resp.token);
+  // Возвращает текущего пользователя
+  public getUser() {
+    return this.currentUserSubject.value
+  }
+  // Проверка входа
+  public isLoggedIn(): boolean {
+    if (this.currentUserSubject.value.authdata != undefined) {
+      return true;
+    }
+    else return false;
+  }
+  // Post запрос для входа
+  // Возвращает Promise
+  // 
+  onLogin = (login: string, password: string): Promise<any> => {
+    return lastValueFrom(this.http.post("http://localhost:8090/user/login", { login: login, password: password })).then((resp: any) => {
       console.log(resp);
       if (resp != null) {
         this.user = resp;
+        // токен вида login:password
         this.user.authdata = window.btoa(login + ':' + password);
-
         localStorage.setItem('currentUser', JSON.stringify(this.user));
-        console.log("bro " + localStorage.getItem("currentUser"));
-        this.currentUserSubject.next(this.user);
-        return this.user;
+        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem("currentUser") || '{}'));
       }
-      else {
-        this.auth = ""
-        return this.auth
-      }
+    }, (err: any) => {
+      console.log("Error with login")
+    });
 
-    }
 
-    )
 
 
   }
-  onLogout(){
+  // выход из аккаунта
+  onLogout() {
     localStorage.removeItem('currentUser');
+    this.currentUserSubject.value.authdata = undefined;
+    console.log('delete')
   }
-  //   logout() {
-  //     // remove user from local storage to log user out
-  //     localStorage.removeItem('currentUser');
-  //     this.currentUserSubject.next(null);
-  // }
+
 }

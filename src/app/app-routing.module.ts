@@ -4,11 +4,13 @@ import { CardComponent } from './components/card/card.component';
 import { CreateComponent } from './components/create/create.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
+import { AuthGuard } from './services/auth.guard';
 
-const routes: Routes = [{ path: 'home', component: HomeComponent },
+const routes: Routes = [{ path: 'home',  canActivate: [AuthGuard],
+ component: HomeComponent },
 { path: 'login', component: LoginComponent },
-{ path: '', component: LoginComponent },
-{ path: 'create', component: CreateComponent },
+{ path: '',canActivate: [AuthGuard], component: HomeComponent },
+{ path: 'create',canActivate: [AuthGuard], component: CreateComponent },
 ];
 
 @NgModule({

@@ -12,6 +12,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CreateComponent } from './components/create/create.component';
 import { BasicInterceptor } from './services/basic.interceptor';
+import { AuthGuard } from './services/auth.guard';
+import { FilterPipe } from './services/filter.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +21,8 @@ import { BasicInterceptor } from './services/basic.interceptor';
     LoginComponent,
     HomeComponent,
     HeaderComponent,
-    CreateComponent
+    CreateComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,7 @@ import { BasicInterceptor } from './services/basic.interceptor';
     provide: HTTP_INTERCEPTORS,
     useClass: BasicInterceptor,
     multi: true
-  }],
+  },AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

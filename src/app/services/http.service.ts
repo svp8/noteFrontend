@@ -3,31 +3,29 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from 'src/app/components/models';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
-// private headers:HttpHeaders={""};
+  
   private loginUrl = "http://localhost:8090/user/login";
-  constructor(private http: HttpClient) {
+  private userid = -8;
+  constructor(private http: HttpClient, private auth: AuthService) {
 
   }
-  // public loginUser(user:User):Observable<any>{
-  //   return this.http.post<any>(this.loginUrl,user);
-  // }
-  loginUser(login: string, password: string) {
-    console.log(login, password);
-
-   return this.http.post(this.loginUrl, { login: login, password: password })
-     
-
-    
+// Все http запросы
+  getNotes() {
+    this.userid = this.auth.getUser().id;
+    return this.http.get('http://localhost:8090/note/all/' + this.userid);
   }
-getNotes(){
-  return this.http.get('http://localhost:8090/note/all/1');
-}
-deleteNotes(id: string | number){
-  return this.http.delete('http://localhost:8090/note/delete/'+id, {responseType: 'text'})
-}
+  deleteNotes(id: string | number) {
+    return this.http.delete('http://localhost:8090/note/delete/' + id, { responseType: 'text' })
+  }
+  postNote(header: string, text: string) {
+    this.userid = this.auth.getUser().id;
+
+    return this.http.post('http://localhost:8090/note/save/', { header: header, text: text, user_id: this.userid })
+  }
 }

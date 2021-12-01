@@ -11,12 +11,12 @@ import { AuthService } from './auth.service';
 @Injectable()
 export class BasicInterceptor implements HttpInterceptor {
 
-  constructor(public auth: AuthService) {}
-   
+  constructor(public auth: AuthService) { }
 
+  // Добавляем каждому запросу Header (Authtorization Basic)
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    
-    if (!request.url.indexOf("http://localhost:8090/user/login")){
+
+    if (!request.url.indexOf("http://localhost:8090/user/login")) {
       console.log(request.url)
       return next.handle(request);
     }

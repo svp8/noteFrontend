@@ -7,11 +7,12 @@ import { HttpService } from 'src/app/services/http.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit { 
+
   public cards: Array<Card> = [];
-
-  constructor(private http: HttpService,private router:Router) { }
-
+  searchText: string = "";
+  constructor(private http: HttpService, private router: Router) { }
+// При переходе на страницу загружаются заметки
   ngOnInit(): void {
     this.http.getNotes().subscribe((resp: any) => {
       if (resp != null) {
@@ -20,8 +21,9 @@ export class HomeComponent implements OnInit {
       }
     });
   }
- onCreate(){
-this.router.navigateByUrl("/create");
- }
+  // Переход на страницу создания
+  onCreate() {
+    this.router.navigateByUrl("/create");
+  }
 
 }
